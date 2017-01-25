@@ -57,6 +57,43 @@ class CommentDocument(object):
         self.wtop_by_sentence = None
         self.ptop_by_sentence = None
 
+    def get_all_word_docs(self):
+        """
+        Return all documents rooted in this doc
+        :return:
+        """
+        yield self.words
+        for child in self.children:
+            for elem in child.get_all_word_docs():
+                yield elem
+
+    def get_sentences(self):
+        for sentence in self.sentences:
+            yield sentence
+        for child in self.children:
+            for elem in child.get_sentences():
+                yield elem
+
+    def get_all_word_sentences(self):
+        for sentence in self.words_by_sentence:
+            yield sentence
+        for child in self.children:
+            for elem in child.get_all_word_sentences():
+                yield elem
+
+    def get_all_phrase_docs(self):
+        yield self.phrases
+        for child in self.children:
+            for elem in child.get_all_phrase_docs():
+                yield elem
+
+    def get_all_phrase_sentences(self):
+        for sentence in self.phrases_by_sentence:
+            yield sentence
+        for child in self.children:
+            for elem in child.get_all_phrase_sentences():
+                yield elem
+
 
 if __name__ == '__main__':
     preprocessor = ToFoTextPreprocessor()

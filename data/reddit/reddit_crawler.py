@@ -48,16 +48,7 @@ def get_discussion(link, folder):
         f.write(json.dumps(data, indent=2, sort_keys=True))
 
 
-cmv_list = ['https://www.reddit.com/r/changemyview/comments/52xdp5/cmv_social_conservatism_is_irrational/',
-            'https://www.reddit.com/r/changemyview/comments/52wpae/cmv_felony_disenfranchisement_is_awful_and_should/',
-            'https://www.reddit.com/r/changemyview/comments/52zct5/cmv_in_college_absences_should_not_affect_your/',
-            'https://www.reddit.com/r/changemyview/comments/52xd5v/cmv_with_the_discovery_of_the_link_between/',
-            'https://www.reddit.com/r/changemyview/comments/52rlpl/cmv_the_united_states_should_not_accept_any_more/',
-            'https://www.reddit.com/r/changemyview/comments/52mxvv/cmv_prosecutors_should_be_required_to_have_a/',
-            'https://www.reddit.com/r/changemyview/comments/52kfua/cmv_my_ta_wore_a_friends_dont_let_friends_vote/',
-            'https://www.reddit.com/r/changemyview/comments/52o3pa/cmv_if_you_opt_out_of_organ_donation_you_should/',
-            'https://www.reddit.com/r/changemyview/comments/52lsfa/cmv_make_america_great_again_is_purely/',
-            'https://www.reddit.com/r/changemyview/comments/52k2nj/cmv_in_approximately_2_centuries_there_will_be/']
+cmv_list = ['https://www.reddit.com/r/todayilearned/comments/56xqeq/til_baby_otters_cant_swim_at_first_but_their/']
 
 for i, cmv in enumerate(cmv_list):
     time.sleep(1)

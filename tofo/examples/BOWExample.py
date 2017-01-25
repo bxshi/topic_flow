@@ -29,5 +29,6 @@ if __name__ == '__main__':
     plot_data = BOWPlotter.convert(data)
 
     dot_graph = TopicGraph.to_dot(plot_data)
-
+    with open('./BOWExample.dot', 'w', encoding='utf8') as f:
+        f.write(dot_graph.__str__())
     print(dot_graph)

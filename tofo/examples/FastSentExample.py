@@ -4,7 +4,7 @@ from __future__ import print_function
 
 import json
 import sys
-from gensim.corpora import Dictionary
+import numpy as np
 
 from tofo.processing import ToFoTextPreprocessor, BOPTopicDetector, BOPFlowConstructor, BOPRepresentativeSelector, \
     BOPPlotter
@@ -20,8 +20,22 @@ if __name__ == '__main__':
 
     data = comment_document_parser(json_data, preprocessor)
 
-    with open('./cmv_sentences.json', 'w+', encoding='utf-8') as f:
-        f.write(json.dumps([x for x in data.get_sentences()]))
+    vocab = dict()
+    with open('/data/bshi/SentenceRepresentation/FastSent/FastSent_no_autoencoding_300_10_0.model.txt',
+              encoding='utf8') as f:
+        n_vocab, vec_dim = [int(x) for x in f.readline().strip().split()]
+        word_vec = np.zeros((n_vocab, vec_dim), dtype=np.float32)
+
+        for line in f:
+            tmp = line.strip().split(' ')
+            word_vec[len(vocab)] = [float(x) for x in tmp[1:]]
+            vocab[tmp[0]] = len(vocab)
+
+            if len(vocab) % 50000 == 0:
+                print("loaded %d / %d" % (len(vocab), n_vocab), end='\r')
+    print("Vocab loaded, size %d", len(vocab))
+    print("Word vector loaded, shape", word_vec.shape)
+
     bag_of_words = BOPTopicDetector.fit(data)
     bag_of_words = dict((v, k) for k, v in bag_of_words.items())
 
@@ -32,6 +46,5 @@ if __name__ == '__main__':
     plot_data = BOPPlotter.convert(data)
 
     dot_graph = TopicGraph.to_dot(plot_data)
-    with open('./BOPExample.dot', 'w', encoding='utf8') as f:
-        f.write(dot_graph.__str__())
+
     print(dot_graph)
